@@ -32,6 +32,12 @@ const columns = [
     width: 200
   },
   {
+    title: '中文名称',
+    dataIndex: 'title',
+    key: 'title',
+    width: 200
+  },
+  {
     title: '类型',
     dataIndex: 'type',
     key: 'type',
@@ -109,6 +115,32 @@ class SchemaTable extends Component {
   constructor(props) {
     super(props);
   }
+
+  // onMyExpand (expanded, record){
+  //       if (expanded) {
+  //     // 设置展开窗Key，代表展开操作
+  //       this.expandedRowKeys.push(record.key);
+  //         this.setState({expandedRowKeys: this.expandedRowKeys})
+  //
+  //   } else {
+  //     // 代表折叠操作
+  //     if (this.expandedRowKeys.length) {
+  //       this.expandedRowKeys = this.expandedRowKeys.filter(v => {
+  //         return v !== record.onExpand
+  //       })
+  //     }
+  //   }
+  // }
+  //
+  //
+  // onTableRowExpand(expanded, record){
+  //   var keys = [];
+  //   if(expanded){
+  //     keys.push(record.id); // I have set my record.id as row key. Check the documentation for more details.
+  //   }
+  //
+  //   this.setState({expandedRowKeys: keys});
+  // }
 
   render() {
     let product;

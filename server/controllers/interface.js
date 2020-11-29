@@ -83,6 +83,7 @@ class interfaceController extends baseController {
       status: 'string',
       req_query: [
         {
+          title: 'string',
           name: 'string',
           value: 'string',
           example: 'string',
@@ -92,6 +93,7 @@ class interfaceController extends baseController {
       ],
       req_headers: [
         {
+          title: 'string',
           name: 'string',
           value: 'string',
           example: 'string',
@@ -102,6 +104,7 @@ class interfaceController extends baseController {
       req_body_type: 'string',
       req_params: [
         {
+          title: 'string',
           name: 'string',
           example: 'string',
           desc: 'string'
@@ -109,6 +112,7 @@ class interfaceController extends baseController {
       ],
       req_body_form: [
         {
+          title: 'string',
           name: 'string',
           type: {
             type: 'string'

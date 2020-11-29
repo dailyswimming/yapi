@@ -89,11 +89,12 @@ const InputGroup = Input.Group;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const dataTpl = {
-  req_query: { name: '', required: '1', desc: '', example: '' },
-  req_headers: { name: '', required: '1', desc: '', example: '' },
-  req_params: { name: '', desc: '', example: '' },
+  req_query: { name: '',  title:'',required: '1', desc: '', example: '' },
+  req_headers: { name: '', title:'', required: '1', desc: '', example: '' },
+  req_params: { name: '', title:'', desc: '', example: '' },
   req_body_form: {
     name: '',
+    title:'',
     type: 'text',
     required: '1',
     desc: '',
@@ -152,8 +153,7 @@ class InterfaceEditForm extends Component {
         return item;
       });
     }
-    // 设置标签的展开与折叠
-    curdata['hideTabs'] = {
+     curdata['hideTabs'] = {
       req: {
         body: 'hide',
         query: 'hide',
@@ -173,6 +173,7 @@ class InterfaceEditForm extends Component {
 
         req_query: [
           {
+            title:'',
             name: '',
             desc: '',
             required: '1'
@@ -181,6 +182,7 @@ class InterfaceEditForm extends Component {
 
         req_headers: [
           {
+            title:'',
             name: '',
             value: '',
             required: '1'
@@ -190,6 +192,7 @@ class InterfaceEditForm extends Component {
         req_body_type: 'form',
         req_body_form: [
           {
+            title:'',
             name: '',
             type: 'text',
             required: '1'
@@ -625,7 +628,12 @@ class InterfaceEditForm extends Component {
               initialValue: data.name
             })(<Input placeholder="参数名称" />)}
           </Col>
-          <Col span="3" className="interface-edit-item-content-col">
+          <Col span="4" draggable="false" className="interface-edit-item-content-col">
+            {getFieldDecorator('req_query[' + index + '].title', {
+              initialValue: data.title
+            })(<Input placeholder="中文名称" />)}
+          </Col>
+          <Col span="2" className="interface-edit-item-content-col">
             {getFieldDecorator('req_query[' + index + '].required', {
               initialValue: data.required
             })(
@@ -635,7 +643,7 @@ class InterfaceEditForm extends Component {
               </Select>
             )}
           </Col>
-          <Col span="6" className="interface-edit-item-content-col">
+          <Col span="3" className="interface-edit-item-content-col">
             {getFieldDecorator('req_query[' + index + '].example', {
               initialValue: data.example
             })(<TextArea autosize={true} placeholder="参数示例" />)}
@@ -679,12 +687,17 @@ class InterfaceEditForm extends Component {
               />
             )}
           </Col>
-          <Col span="5" className="interface-edit-item-content-col">
+          <Col span="3" className="interface-edit-item-content-col">
+            {getFieldDecorator('req_headers[' + index + '].title', {
+              initialValue: data.title
+            })(<Input placeholder="中文名称" />)}
+          </Col>
+          <Col span="4" className="interface-edit-item-content-col">
             {getFieldDecorator('req_headers[' + index + '].value', {
               initialValue: data.value
             })(<Input placeholder="参数值" />)}
           </Col>
-          <Col span="5" className="interface-edit-item-content-col">
+          <Col span="3" className="interface-edit-item-content-col">
             {getFieldDecorator('req_headers[' + index + '].example', {
               initialValue: data.example
             })(<TextArea autosize={true} placeholder="参数示例" />)}
@@ -720,7 +733,7 @@ class InterfaceEditForm extends Component {
               initialValue: data.name
             })(<Input placeholder="name" />)}
           </Col>
-          <Col span="3" className="interface-edit-item-content-col">
+          <Col span="2" className="interface-edit-item-content-col">
             {getFieldDecorator('req_body_form[' + index + '].type', {
               initialValue: data.type
             })(
@@ -731,6 +744,12 @@ class InterfaceEditForm extends Component {
             )}
           </Col>
           <Col span="3" className="interface-edit-item-content-col">
+            {getFieldDecorator('req_body_form[' + index + '].title', {
+              initialValue: data.title
+            })(<TextArea autosize={true} placeholder="中文名称" />)}
+          </Col>
+
+          <Col span="2" className="interface-edit-item-content-col">
             {getFieldDecorator('req_body_form[' + index + '].required', {
               initialValue: data.required
             })(
@@ -740,7 +759,7 @@ class InterfaceEditForm extends Component {
               </Select>
             )}
           </Col>
-          <Col span="5" className="interface-edit-item-content-col">
+          <Col span="3" className="interface-edit-item-content-col">
             {getFieldDecorator('req_body_form[' + index + '].example', {
               initialValue: data.example
             })(<TextArea autosize={true} placeholder="参数示例" />)}
@@ -764,12 +783,17 @@ class InterfaceEditForm extends Component {
     const paramsTpl = (data, index) => {
       return (
         <Row key={index} className="interface-edit-item-content">
-          <Col span="6" className="interface-edit-item-content-col">
+          <Col span="5" className="interface-edit-item-content-col">
             {getFieldDecorator('req_params[' + index + '].name', {
               initialValue: data.name
             })(<Input disabled placeholder="参数名称" />)}
           </Col>
-          <Col span="7" className="interface-edit-item-content-col">
+          <Col span="4" className="interface-edit-item-content-col">
+            {getFieldDecorator('req_params[' + index + '].title', {
+              initialValue: data.title
+            })(<Input  placeholder="中文名称" />)}
+          </Col>
+          <Col span="4" className="interface-edit-item-content-col">
             {getFieldDecorator('req_params[' + index + '].example', {
               initialValue: data.example
             })(<TextArea autosize={true} placeholder="参数示例" />)}

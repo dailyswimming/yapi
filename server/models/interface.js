@@ -25,6 +25,7 @@ class interfaceModel extends baseModel {
         path: String,
         params: [
           {
+            title: String,
             name: String,
             value: String
           }
@@ -32,6 +33,7 @@ class interfaceModel extends baseModel {
       },
       req_query: [
         {
+          title: String,
           name: String,
           value: String,
           example: String,
@@ -45,6 +47,7 @@ class interfaceModel extends baseModel {
       ],
       req_headers: [
         {
+          title: String,
           name: String,
           value: String,
           example: String,
@@ -58,6 +61,7 @@ class interfaceModel extends baseModel {
       ],
       req_params: [
         {
+          title: String,
           name: String,
           desc: String,
           example: String
@@ -70,6 +74,7 @@ class interfaceModel extends baseModel {
       req_body_is_json_schema: { type: Boolean, default: false },
       req_body_form: [
         {
+          title: String,
           name: String,
           type: { type: String, enum: ['text', 'file'] },
           example: String,

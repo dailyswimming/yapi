@@ -45,6 +45,12 @@ class View extends Component {
           width: 140
         },
         {
+          title: '中文名称',
+          dataIndex: 'title',
+          key: 'title',
+          width: 140
+        },
+        {
           title: '参数类型',
           dataIndex: 'type',
           key: 'type',
@@ -93,6 +99,7 @@ class View extends Component {
           dataSource.push({
             key: i,
             name: item.name,
+            title: item.title,
             value: item.desc,
             example: item.example,
             required: item.required == 0 ? '否' : '是',
@@ -163,6 +170,12 @@ class View extends Component {
         key: 'name'
       },
       {
+        title: '中文名称',
+        dataIndex: 'title',
+        width: 140,
+        key: 'title'
+      },
+      {
         title: '是否必须',
         width: 100,
         dataIndex: 'required',
@@ -193,6 +206,7 @@ class View extends Component {
         dataSource.push({
           key: i,
           name: item.name,
+          title: item.title,
           value: item.desc,
           example: item.example,
           required: item.required == 0 ? '否' : '是'
@@ -260,6 +274,7 @@ class View extends Component {
         dataSource.push({
           key: i,
           name: item.name,
+          title: item.title,
           required: item.required == 0 ? '否' : '是',
           value: item.value,
           example: item.example,
@@ -273,6 +288,7 @@ class View extends Component {
       this.props.curData.req_params.map((item, i) => {
         req_dataSource.push({
           key: i,
+          title: item.title,
           name: item.name,
           desc: item.desc,
           example: item.example
@@ -284,6 +300,12 @@ class View extends Component {
         title: '参数名称',
         dataIndex: 'name',
         key: 'name',
+        width: 140
+      },
+      {
+        title: '中文名称',
+        dataIndex: 'title',
+        key: 'title',
         width: 140
       },
       {
@@ -310,6 +332,12 @@ class View extends Component {
         title: '参数名称',
         dataIndex: 'name',
         key: 'name',
+        width: '200px'
+      },
+      {
+        title: '中文名称',
+        dataIndex: 'title',
+        key: 'title',
         width: '200px'
       },
       {
