@@ -188,6 +188,11 @@ module.exports = {
           loader: 'json-loader'
         });
 
+        baseConfig.module.preLoaders.push({
+          test: /\.(js|jsx)$/,
+          include: [path.resolve(__dirname, './node_modules/swagger-client')],
+          loader: 'babel-loader'
+        });
         if (this.env == 'prd') {
           baseConfig.plugins.push(
             new this.webpack.optimize.UglifyJsPlugin({
