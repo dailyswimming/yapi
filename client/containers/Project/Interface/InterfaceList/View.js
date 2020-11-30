@@ -48,7 +48,7 @@ class View extends Component {
           title: '中文名称',
           dataIndex: 'title',
           key: 'title',
-          width: 140
+          width: 100
         },
         {
           title: '参数类型',
@@ -73,15 +73,6 @@ class View extends Component {
           dataIndex: 'required',
           key: 'required',
           width: 100
-        },
-        {
-          title: '示例',
-          dataIndex: 'example',
-          key: 'example',
-          width: 80,
-          render(_, item) {
-            return <p style={{ whiteSpace: 'pre-wrap' }}>{item.example}</p>;
-          }
         },
         {
           title: '备注',
@@ -172,7 +163,7 @@ class View extends Component {
       {
         title: '中文名称',
         dataIndex: 'title',
-        width: 140,
+        width: 100,
         key: 'title'
       },
       {
@@ -180,15 +171,6 @@ class View extends Component {
         width: 100,
         dataIndex: 'required',
         key: 'required'
-      },
-      {
-        title: '示例',
-        dataIndex: 'example',
-        key: 'example',
-        width: 80,
-        render(_, item) {
-          return <p style={{ whiteSpace: 'pre-wrap' }}>{item.example}</p>;
-        }
       },
       {
         title: '备注',
@@ -306,16 +288,7 @@ class View extends Component {
         title: '中文名称',
         dataIndex: 'title',
         key: 'title',
-        width: 140
-      },
-      {
-        title: '示例',
-        dataIndex: 'example',
-        key: 'example',
-        width: 80,
-        render(_, item) {
-          return <p style={{ whiteSpace: 'pre-wrap' }}>{item.example}</p>;
-        }
+        width: 100
       },
       {
         title: '备注',
@@ -338,7 +311,7 @@ class View extends Component {
         title: '中文名称',
         dataIndex: 'title',
         key: 'title',
-        width: '200px'
+        width: '125px'
       },
       {
         title: '参数值',
@@ -351,15 +324,6 @@ class View extends Component {
         dataIndex: 'required',
         key: 'required',
         width: '100px'
-      },
-      {
-        title: '示例',
-        dataIndex: 'example',
-        key: 'example',
-        width: '80px',
-        render(_, item) {
-          return <p style={{ whiteSpace: 'pre-wrap' }}>{item.example}</p>;
-        }
       },
       {
         title: '备注',

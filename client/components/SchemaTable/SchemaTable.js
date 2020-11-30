@@ -6,23 +6,23 @@ import { schemaTransformToTable } from '../../../common/schema-transformTo-table
 import _ from 'underscore';
 import './index.scss';
 
-const messageMap = {
-  desc: '备注',
-  default: '实例',
-  maximum: '最大值',
-  minimum: '最小值',
-  maxItems: '最大数量',
-  minItems: '最小数量',
-  maxLength: '最大长度',
-  minLength: '最小长度',
-  enum: '枚举',
-  enumDesc: '枚举备注',
-  uniqueItems: '元素是否都不同',
-  itemType: 'item 类型',
-  format: 'format',
-  itemFormat: 'format',
-  mock: 'mock'
-};
+// const messageMap = {
+//   desc: '备注',
+//   default: '实例',
+//   maximum: '最大值',
+//   minimum: '最小值',
+//   maxItems: '最大数量',
+//   minItems: '最小数量',
+//   maxLength: '最大长度',
+//   minLength: '最小长度',
+//   enum: '枚举',
+//   enumDesc: '枚举备注',
+//   uniqueItems: '元素是否都不同',
+//   itemType: 'item 类型',
+//   format: 'format',
+//   itemFormat: 'format',
+//   mock: 'mock'
+// };
 
 const columns = [
   {
@@ -35,7 +35,7 @@ const columns = [
     title: '中文名称',
     dataIndex: 'title',
     key: 'title',
-    width: 200
+    width: 125
   },
   {
     title: '类型',
@@ -61,15 +61,6 @@ const columns = [
     }
   },
   {
-    title: '默认值',
-    dataIndex: 'default',
-    key: 'default',
-    width: 80,
-    render: text => {
-      return <div>{_.isBoolean(text) ? text + '' : text}</div>;
-    }
-  },
-  {
     title: '备注',
     dataIndex: 'desc',
     key: 'desc',
@@ -80,69 +71,54 @@ const columns = [
         <span className="table-desc">{item.childrenDesc}</span>
       );
     }
-  },
-  {
-    title: '其他信息',
-    dataIndex: 'sub',
-    key: 'sub',
-    width: 180,
-    render: (text, record) => {
-      let result = text || record;
-
-      return Object.keys(result).map((item, index) => {
-        let name = messageMap[item];
-        let value = result[item];
-        let isShow = !_.isUndefined(result[item]) && !_.isUndefined(name);
-
-        return (
-          isShow && (
-            <p key={index}>
-              <span style={{ fontWeight: '700' }}>{name}: </span>
-              <span>{value.toString()}</span>
-            </p>
-          )
-        );
-      });
-    }
   }
 ];
+
+const getHasSub = function(arr,result){
+  let hasSubs =  arr.filter(function (item) {
+    return   item.children ;
+  });
+  let subs = [];
+  hasSubs.forEach(function (item) {
+    result.push(item.key);
+    subs = subs.concat(item.children);
+  })
+  if(subs.length >0){
+    getHasSub(subs,result)
+
+  }
+}
 
 class SchemaTable extends Component {
   static propTypes = {
     dataSource: PropTypes.string
   };
-
   constructor(props) {
     super(props);
+    this.expandKeys = [];
+    this.tableData =  this.getTableData();
+    getHasSub(this.tableData,this.expandKeys)
+    this.state = {expandedRowKeys: this.expandKeys};
+    this.onTableRowExpand = this.onTableRowExpand.bind(this);
   }
 
-  // onMyExpand (expanded, record){
-  //       if (expanded) {
-  //     // 设置展开窗Key，代表展开操作
-  //       this.expandedRowKeys.push(record.key);
-  //         this.setState({expandedRowKeys: this.expandedRowKeys})
-  //
-  //   } else {
-  //     // 代表折叠操作
-  //     if (this.expandedRowKeys.length) {
-  //       this.expandedRowKeys = this.expandedRowKeys.filter(v => {
-  //         return v !== record.onExpand
-  //       })
-  //     }
-  //   }
-  // }
-  //
-  //
-  // onTableRowExpand(expanded, record){
-  //   var keys = [];
-  //   if(expanded){
-  //     keys.push(record.id); // I have set my record.id as row key. Check the documentation for more details.
-  //   }
-  //
-  //   this.setState({expandedRowKeys: keys});
-  // }
 
-  render() {
+  onTableRowExpand = (expanded, record) => {
+     if(expanded){
+       this.expandKeys.push(record.key);
+    }else {
+      if (this.state.expandedRowKeys.length) {
+        this.expandKeys = this.expandKeys.filter(v => {
+          return v != record.key;
+        });
+      }
+
+    }
+
+    this.setState({expandedRowKeys: this.expandKeys});
+  }
+
+  getTableData(){
     let product;
     try {
       product = json5.parse(this.props.dataSource);
@@ -154,7 +130,12 @@ class SchemaTable extends Component {
     }
     let data = schemaTransformToTable(product);
     data = _.isArray(data) ? data : [];
-    return <Table bordered size="small" pagination={false} dataSource={data} columns={columns} />;
+    return data;
+  }
+
+  render() {
+     return <Table bordered size="small" pagination={false} dataSource={this.tableData} columns={columns}
+            onExpand={this.onTableRowExpand}      expandedRowKeys={this.state.expandedRowKeys} />;
   }
 }
 export default SchemaTable;

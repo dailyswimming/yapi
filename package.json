@@ -27,6 +27,9 @@
     "type": "git",
     "url": "git@github.com:YMFE/yapi.git"
   },
+  "resolutions": {
+    "**/antd": "3.2.2"
+  },
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
