@@ -93,32 +93,11 @@ class SchemaTable extends Component {
   static propTypes = {
     dataSource: PropTypes.string
   };
+
   constructor(props) {
     super(props);
-    this.expandKeys = [];
-    this.tableData =  this.getTableData();
-    getHasSub(this.tableData,this.expandKeys)
-    this.state = {expandedRowKeys: this.expandKeys};
-    this.onTableRowExpand = this.onTableRowExpand.bind(this);
   }
-
-
-  onTableRowExpand = (expanded, record) => {
-     if(expanded){
-       this.expandKeys.push(record.key);
-    }else {
-      if (this.state.expandedRowKeys.length) {
-        this.expandKeys = this.expandKeys.filter(v => {
-          return v != record.key;
-        });
-      }
-
-    }
-
-    this.setState({expandedRowKeys: this.expandKeys});
-  }
-
-  getTableData(){
+  render() {
     let product;
     try {
       product = json5.parse(this.props.dataSource);
@@ -130,12 +109,7 @@ class SchemaTable extends Component {
     }
     let data = schemaTransformToTable(product);
     data = _.isArray(data) ? data : [];
-    return data;
-  }
-
-  render() {
-     return <Table bordered size="small" pagination={false} dataSource={this.tableData} columns={columns}
-            onExpand={this.onTableRowExpand}      expandedRowKeys={this.state.expandedRowKeys} />;
+    return <Table bordered size="small" pagination={false} dataSource={data} columns={columns} />;
   }
 }
 export default SchemaTable;
